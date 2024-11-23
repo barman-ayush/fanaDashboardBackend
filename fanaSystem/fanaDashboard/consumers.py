@@ -1,17 +1,26 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.exceptions import DenyConnection
 import json
+from django.contrib.auth.models import AnonymousUser
+
 
 class DashboardConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        # Check if the user is authenticated
-        if self.scope['user'].is_anonymous:
-            # Deny the connection if the user is not authenticated
+        print("Received connection request")
+        print("The current scope", self.scope)
+        user = self.scope.get("user")
+
+        print("Got the user scope", user)
+        if not user or isinstance(user, AnonymousUser):
+            print("[ERROR] User is anonymous or not set")
             raise DenyConnection("User is not authenticated.")
-        
-        # Add the user to the "dashboard_group" if authenticated
+
+        print(f"[DEBUG] User authenticated: {user}")
         await self.channel_layer.group_add("dashboard_group", self.channel_name)
         await self.accept()
+        print("[DEBUG] Connection accepted")
+
+    # Handle the received message
 
     async def disconnect(self, close_code):
         # Remove the user from the "dashboard_group" on disconnect
