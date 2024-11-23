@@ -1,0 +1,1 @@
+wscat -c ws://192.168.1.8:8000/ws/dashboard/ -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMzU3MDk1LCJpYXQiOjE3MzIzNTY3OTUsImp0aSI6IjFkYmJlNTFlOTJlMzRkZjlhMzJmMGRmMmZmYzFiYjNlIiwiYXBwIjpudWxsLCJ1c2VybmFtZSI6InZhbGlkX3VzZXJuYW1lIn0.N-nuYWNGo6UzH5fgq7SFvF8SATBVEGRtz9Qu1q7nz60"

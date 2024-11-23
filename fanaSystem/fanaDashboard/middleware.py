@@ -8,6 +8,7 @@ class JWTAuthenticationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        print(f"Got a request {request}")
         # Only apply to fanaDashboard URLs
         if not request.path.startswith('/fanaDashboard'):
             return self.get_response(request)
