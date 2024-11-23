@@ -71,6 +71,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
+SECURE_COOKIES = False  # Change to True in production
 
 CORS_ALLOW_ALL_ORIGINS = True
 

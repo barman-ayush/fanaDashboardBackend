@@ -4,6 +4,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from channels.middleware import BaseMiddleware
 from jwt import decode as jwt_decode, ExpiredSignatureError, InvalidTokenError
 from django.conf import settings
+from django.urls import resolve
 
 class JWTAuthenticationMiddleware:
     """
@@ -12,11 +13,19 @@ class JWTAuthenticationMiddleware:
 
     def __init__(self, get_response):
         self.get_response = get_response
+        self._exempt_urls = ['set_session', 'login_view']
 
     def __call__(self, request):
         """
         Authenticate HTTP requests.
         """
+        view_name = resolve(request.path_info).url_name
+
+        print(f"Exempt list {self._exempt_urls}, url is {view_name}")
+        if view_name in self._exempt_urls:
+            print(f"[INFO] Skipping authentication for exempt URL: {request.path}")
+            return self.get_response(request)
+
         print(f"[DEBUG] JWTAuthenticationMiddleware invoked for HTTP path: {request.path}")
         token = self._get_token_from_request(request)
         if token:
@@ -35,9 +44,9 @@ class JWTAuthenticationMiddleware:
 
     def _get_token_from_request(self, request):
         """
-        Extract JWT token from cookies or Authorization header for HTTP requests.
+        Extract JWT token from session or Authorization header for HTTP requests.
         """
-        token = request.COOKIES.get('jwt_token')
+        token = request.COOKIES.get('jwt_token')  # Retrieve token from the cookie
         if not token:
             auth_header = request.headers.get('Authorization', '')
             if auth_header.startswith('Bearer '):
@@ -96,24 +105,25 @@ class WebSocketJWTAuthenticationMiddleware(BaseMiddleware):
 
     def _get_token_from_scope(self, scope):
         """
-        Extract JWT token from headers or cookies for WebSocket requests.
+        Extract JWT token from cookies or Authorization header for WebSocket requests.
         """
         headers = dict(scope.get("headers", []))
         token = None
 
-        # Check Authorization header
-        if b"authorization" in headers:
+        # Check cookies
+        if b"cookie" in headers:
+            cookie_header = headers[b"cookie"].decode("utf-8")
+            cookies = {key: value for key, value in (pair.split('=') for pair in cookie_header.split('; '))}
+            token = cookies.get("jwt_token")
+
+        # Fallback to Authorization header
+        if not token and b"authorization" in headers:
             auth_header = headers[b"authorization"].decode("utf-8")
             if auth_header.startswith("Bearer "):
                 token = auth_header.split("Bearer ")[-1]
 
-        # Check cookies
-        if not token and b"cookie" in headers:
-            cookie_header = headers[b"cookie"].decode("utf-8")
-            for cookie in cookie_header.split("; "):
-                if cookie.startswith("jwt_token="):
-                    token = cookie.split("=")[-1]
         return token
+
 
     def get_user_from_token(self, decoded_token):
         """

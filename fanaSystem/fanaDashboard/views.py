@@ -58,6 +58,13 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.http import JsonResponse
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+import jwt
+import json
+from django.conf import settings
+
 
 @csrf_exempt
 def set_session(request):
@@ -69,23 +76,35 @@ def set_session(request):
             return JsonResponse({'status': 'error', 'message': 'JWT token is required'}, status=400)
 
         try:
-            print(f"Decodign the json object wrt {settings.SECRET_KEY}", )
+            print(f"Decoding the JSON object wrt {settings.SECRET_KEY}")
             # Decode JWT using the shared secret key
             decoded_data = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
             username = decoded_data.get('username')
 
-            print (f"Decoded the obj {decoded_data}, {username}")
+            print(f"Decoded the obj {decoded_data}, {username}")
+
             # Set session with username
             request.session['username'] = username
-            request.session['jwt'] = token  # Optionally store the JWT itself
+            request.session['jwt_token'] = token  # Optionally store the JWT itself
 
             # Optionally create a User object if not exists, or mark the user as authenticated
             user, created = User.objects.get_or_create(username=username)
             login(request, user)  # Marks user as authenticated in the session
+            print("User logged in and session set successfully")
 
-            return JsonResponse({'status': 'success', 'message': 'Session set successfully'})
+            # Set the JWT token in an HttpOnly cookie
+            response = JsonResponse({'status': 'success', 'message': 'Session set successfully'})
+            response.set_cookie(
+                key='jwt_token',
+                value=token,
+                httponly=True,  # Secure the cookie
+                secure=settings.SECURE_COOKIES,  # Use True in production
+                samesite='Lax',  # Adjust depending on your requirements
+                max_age=60 * 60  # 1 hour
+            )
+            return response
         except jwt.ExpiredSignatureError:
-            return JsonResponse({'status': 'error', 'message': 'Token expired'}, status=400)
+            return JsonResponse({'status': 'error', 'message': 'Token has expired'}, status=400)
         except jwt.InvalidTokenError:
             return JsonResponse({'status': 'error', 'message': 'Invalid token'}, status=400)
 

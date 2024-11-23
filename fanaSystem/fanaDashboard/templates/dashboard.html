@@ -53,6 +53,12 @@
             sessionStorage.removeItem('jwt_token');
             window.location.href = "{% url 'login_view' %}";
         }
+        
+        const jwtToken = sessionStorage.getItem("jwt_token"); // Retrieve token from session storage
+        if (!jwtToken) {
+            console.error("No JWT token found in session storage. Redirecting to login...");
+            // window.location.href = "{% url 'login_view' %}";
+        }
 
         // WebSocket connection for receiving messages
         const socket = new WebSocket('ws://' + window.location.host + '/ws/dashboard/');

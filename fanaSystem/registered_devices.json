@@ -1,3 +1,5 @@
 {
-    "device_ids": []
+    "device_ids": [
+        "test_device_123"
+    ]
 }
