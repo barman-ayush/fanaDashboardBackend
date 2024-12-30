@@ -8,3 +8,4 @@
 
 # Web app
 1. Hosting --> GCP
+2. Integration with the fanaMenu
