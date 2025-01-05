@@ -15,23 +15,24 @@ import os
 import socket
 
 import environ
-from google.cloud import secretmanager
+# from google.cloud import secretmanager
 
 # Initialize environment variables
 env = environ.Env()
 environ.Env.read_env()  # Reads local .env for development
 def get_secret(secret_name):
-    """
-    Retrieve secret from Google Secret Manager.
-    """
-    try:
-        client = secretmanager.SecretManagerServiceClient()
-        name = f"projects/local-tracker-441721-v0/secrets/{secret_name}/versions/latest"
-        response = client.access_secret_version(name=name)
-        return response.payload.data.decode("UTF-8")
-    except Exception as e:
-        print(f"Error retrieving secret: {e}")
-        return None
+    return None
+    # """
+    # Retrieve secret from Google Secret Manager.
+    # """
+    # try:
+    #     client = secretmanager.SecretManagerServiceClient()
+    #     name = f"projects/local-tracker-441721-v0/secrets/{secret_name}/versions/latest"
+    #     response = client.access_secret_version(name=name)
+    #     return response.payload.data.decode("UTF-8")
+    # except Exception as e:
+    #     print(f"Error retrieving secret: {e}")
+    #     return None
 
 
 # Fetch the secret key
