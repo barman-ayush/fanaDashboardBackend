@@ -14,6 +14,29 @@ from pathlib import Path
 import os
 import socket
 
+import environ
+from google.cloud import secretmanager
+
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()  # Reads local .env for development
+def get_secret(secret_name):
+    """
+    Retrieve secret from Google Secret Manager.
+    """
+    try:
+        client = secretmanager.SecretManagerServiceClient()
+        name = f"projects/local-tracker-441721-v0/secrets/{secret_name}/versions/latest"
+        response = client.access_secret_version(name=name)
+        return response.payload.data.decode("UTF-8")
+    except Exception as e:
+        print(f"Error retrieving secret: {e}")
+        return None
+
+
+# Fetch the secret key
+SECRET_KEY = get_secret("django_settings") or os.getenv("SECRET_KEY", "your_default_secret_key")
+
 # Get the server’s IP address or hostname
 DEFAULT_SERVER_HOST = socket.gethostbyname(socket.gethostname())
 
@@ -32,10 +55,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-yanopv@xd)#_v3ixk0d&6+a!v&jn(-l-b*et&c$(4#=x=1#55("
+# SECRET_KEY = "django-insecure-yanopv@xd)#_v3ixk0d&6+a!v&jn(-l-b*et&c$(4#=x=1#55("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #env.bool("DEBUG", default=False)
 
 # SECURITY WARNING: update this when you have the production host
 ALLOWED_HOSTS = ['*']
@@ -97,6 +120,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "fanaSystem.wsgi.application"
 
 
+
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -106,6 +131,29 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+
+# import os
+
+# if os.getenv("DB_HOST"):
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": os.getenv("DB_NAME", "mydatabase"),
+#             "USER": os.getenv("DB_USER", "myuser"),
+#             "PASSWORD": os.getenv("DB_PASSWORD", "mypassword"),
+#             "HOST": os.getenv("DB_HOST"),
+#             "PORT": os.getenv("DB_PORT", "5432"),
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#         }
+#     }
+
 
 
 # Password validation
@@ -142,7 +190,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+# STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -155,6 +203,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'fanaDashboard', 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # fanaSystem/settings.py
 LOGIN_URL = '/fanaDashboard/login/'
@@ -196,3 +249,5 @@ SIMPLE_JWT = {
 
 # settings.py
 LOGIN_URL = '/fanaDashboard/login/'
+
+
