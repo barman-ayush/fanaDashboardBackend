@@ -4,7 +4,14 @@ import time
 from websocket import create_connection
 from threading import Thread, Event
 
-BASE_URL = "http://localhost:8000"
+# Configuration: Set IP and Ports here
+PUBLIC_IP = "0.0.0.0"  # Change to the current public IP
+HTTP_PORT = 8000  # Port for HTTP (Gunicorn)
+WS_PORT = 8001  # Port for WebSocket (Daphne)
+
+BASE_URL = f"http://{PUBLIC_IP}:{HTTP_PORT}"
+WS_URL = f"ws://{PUBLIC_IP}:{WS_PORT}/ws/dashboard/"
+
 USERNAME = "valid_username"
 PASSWORD = "valid_password"
 ORDER_ID = "order_123"
@@ -70,7 +77,6 @@ def websocket_listener(stop_event):
         ws.close()
 
 
-
 # Send Order
 def send_order():
     global access_token
@@ -121,7 +127,7 @@ def test_sequence():
         # Step 2: Connect to WebSocket
         print("[INFO] Connecting to WebSocket...")
         ws = create_connection(
-            f"ws://{BASE_URL.split('//')[1]}/ws/dashboard/",
+            WS_URL,
             header=[f"Authorization: Bearer {access_token}"],
         )
         print("[INFO] Connected to WebSocket.")
@@ -177,3 +183,4 @@ def test_sequence():
 # Run the Test
 if __name__ == "__main__":
     test_sequence()
+

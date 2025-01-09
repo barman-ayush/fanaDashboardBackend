@@ -14,12 +14,12 @@ from pathlib import Path
 import os
 import socket
 
-import environ
+#import environ
 # from google.cloud import secretmanager
 
 # Initialize environment variables
-env = environ.Env()
-environ.Env.read_env()  # Reads local .env for development
+#env = environ.Env()
+#environ.Env.read_env()  # Reads local .env for development
 def get_secret(secret_name):
     return None
     # """
@@ -216,11 +216,22 @@ LOGIN_REDIRECT_URL = '/fanaDashboard/'
 
 # settings.py
 
+
+
+# Channels Settings
+ASGI_APPLICATION = "fanaSystem.asgi.application"
+
+# Redis Channel Layer
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],  # Redis server details
+        },
     },
 }
+
+
 
 from datetime import timedelta
 
