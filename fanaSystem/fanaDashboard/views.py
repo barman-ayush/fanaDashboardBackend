@@ -7,6 +7,26 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import logging
 from django.conf import settings
+import jwt
+from django.conf import settings
+from django.http import JsonResponse
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+import jwt
+import json
+from django.conf import settings
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+import json
+import logging
 
 logging.basicConfig(filename='table_activity.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -43,28 +63,13 @@ def handle_fana_call(request):
 @login_required(login_url='/fanaDashboard/login/')
 def dashboard(request):
     """Render the dashboard page."""
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html', { "wsl_server_url": settings.WSL_SERVER_URL})
 
 
 def login_view(request):
     app_id = request.session.get("app_id", "YOUR_APP_ID")  # Use session or default App ID
     auth_server_login_url = settings.AUTH_SERVER_LOGIN_URL  # Get URL from settings
     return render(request, 'login.html', {"app_id": app_id, "auth_server_login_url": auth_server_login_url})
-
-import jwt
-from django.conf import settings
-from django.http import JsonResponse
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
-import json
-from django.http import JsonResponse
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-import jwt
-import json
-from django.conf import settings
-
 
 @csrf_exempt
 def set_session(request):
@@ -110,14 +115,6 @@ def set_session(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
-import json
-import logging
-
-logging.basicConfig(filename='table_activity.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 @csrf_exempt
 def receive_order(request):

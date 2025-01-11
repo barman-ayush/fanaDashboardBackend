@@ -1,8 +1,8 @@
 import requests
 import os
-import json
+import common as settings
 
-BASE_URL = "http://localhost:8000/fanaAuthenticator/api"
+BASE_URL = f"{settings.BASE_URL}/fanaAuthenticator/api"
 
 # Set the URLs for fanaAuthenticator and fanaDashboard from environment variables
 FANA_AUTHENTICATOR_URL = os.getenv("FANA_AUTHENTICATOR_URL", "http://localhost:8000/fanaAuthenticator/handle_customer_order/")

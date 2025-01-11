@@ -61,7 +61,7 @@
         }
 
         // WebSocket connection for receiving messages
-        const socket = new WebSocket('ws://' + window.location.host + '/ws/dashboard/');
+        const socket = new WebSocket('{{ wsl_server_url }}');
         const tableList = document.getElementById("tableList");
         const orderList = document.getElementById("orderList");
         const tableMap = {};

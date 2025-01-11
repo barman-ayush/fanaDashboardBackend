@@ -1,6 +1,6 @@
 import requests
-
-BASE_URL = "http://localhost:8000/fanaAuthenticator/api"
+import common as settings
+BASE_URL = f"{settings.BASE_URL}/fanaAuthenticator/api"
 USERNAME = "valid_username"
 PASSWORD = "valid_password"
 DEVICE_ID = "test_device_123"
@@ -8,6 +8,7 @@ DEVICE_ID = "test_device_123"
 # Function to get a JWT token
 def get_jwt_token(username, password, device_id):
     url = f"{BASE_URL}/token/"
+    print(f"Doing a post request on {url}")
     response = requests.post(url, json={
         "username": username,
         "password": password,
@@ -24,6 +25,8 @@ def get_jwt_token(username, password, device_id):
 # Function to add a device with JWT token in headers
 def add_device(device_id, token):
     url = f"{BASE_URL}/add_device/"
+    print(f"Doing a post request on {url}")
+
     headers = {"Authorization": f"Bearer {token}"}
     response = requests.post(url, json={"device_id": device_id}, headers=headers)
     print("Add Device Response:", response.json())
@@ -31,6 +34,8 @@ def add_device(device_id, token):
 # Function to remove a device with JWT token in headers
 def remove_device(device_id, token):
     url = f"{BASE_URL}/remove_device/"
+    print(f"Doing a delete request on {url}")
+
     headers = {"Authorization": f"Bearer {token}"}
     response = requests.delete(url, json={"device_id": device_id}, headers=headers)
     print("Remove Device Response:", response.json())

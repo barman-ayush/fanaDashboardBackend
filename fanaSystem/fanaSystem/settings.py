@@ -13,30 +13,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import socket
+from datetime import timedelta
 
-#import environ
-# from google.cloud import secretmanager
-
-# Initialize environment variables
-#env = environ.Env()
-#environ.Env.read_env()  # Reads local .env for development
-def get_secret(secret_name):
-    return None
-    # """
-    # Retrieve secret from Google Secret Manager.
-    # """
-    # try:
-    #     client = secretmanager.SecretManagerServiceClient()
-    #     name = f"projects/local-tracker-441721-v0/secrets/{secret_name}/versions/latest"
-    #     response = client.access_secret_version(name=name)
-    #     return response.payload.data.decode("UTF-8")
-    # except Exception as e:
-    #     print(f"Error retrieving secret: {e}")
-    #     return None
-
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fanaSystem.settings")
 
 # Fetch the secret key
-SECRET_KEY = get_secret("django_settings") or os.getenv("SECRET_KEY", "your_default_secret_key")
+SECRET_KEY = os.getenv("SECRET_KEY", "your_default_secret_key")
 
 # Get the server’s IP address or hostname
 DEFAULT_SERVER_HOST = socket.gethostbyname(socket.gethostname())
@@ -44,10 +26,14 @@ DEFAULT_SERVER_HOST = socket.gethostbyname(socket.gethostname())
 # Environment variable to override with a custom AUTH_SERVER_IP if needed
 AUTH_SERVER_IP = os.getenv("AUTH_SERVER_IP", DEFAULT_SERVER_HOST)
 
-# Construct the full URL for the authentication endpoint
-AUTH_SERVER_LOGIN_URL = f"http://localhost:8000/fanaAuthenticator/api/token/"
+# PUBLIC_IP OR DOMAIN RELATED SETTINGS
+PUBLIC_IP = None
 
-SEND_ORDER_TO_DASHBOARD_URL = f"http://localhost:8000/fanaDashboard/receiveOrder/"
+# Construct the full URL for the authentication endpoint
+BASE_URL = f"http://{PUBLIC_IP if PUBLIC_IP else 'localhost'}:8000"
+AUTH_SERVER_LOGIN_URL = f"{BASE_URL}/fanaAuthenticator/api/token/"
+WSL_SERVER_URL = f"http://{PUBLIC_IP if PUBLIC_IP else 'localhost'}:{8001 if PUBLIC_IP else 8000}/ws/dashboard/"
+SEND_ORDER_TO_DASHBOARD_URL =  f"{BASE_URL}/fanaDashboard/receiveOrder/"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,30 +119,6 @@ DATABASES = {
     }
 }
 
-
-# import os
-
-# if os.getenv("DB_HOST"):
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql",
-#             "NAME": os.getenv("DB_NAME", "mydatabase"),
-#             "USER": os.getenv("DB_USER", "myuser"),
-#             "PASSWORD": os.getenv("DB_PASSWORD", "mypassword"),
-#             "HOST": os.getenv("DB_HOST"),
-#             "PORT": os.getenv("DB_PORT", "5432"),
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#         }
-#     }
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -229,6 +191,10 @@ CHANNEL_LAYERS = {
             "hosts": [("127.0.0.1", 6379)],  # Redis server details
         },
     },
+} if PUBLIC_IP else {
+    "default": {
+        "BACKEND": 'channels.layers.InMemoryChannelLayer'
+    }
 }
 
 
@@ -245,8 +211,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-from datetime import timedelta
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -257,9 +221,3 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
-
-
-# settings.py
-LOGIN_URL = '/fanaDashboard/login/'
-
-

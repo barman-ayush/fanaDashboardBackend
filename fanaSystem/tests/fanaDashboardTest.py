@@ -3,14 +3,9 @@ import requests
 import time
 from websocket import create_connection
 from threading import Thread, Event
-
-# Configuration: Set IP and Ports here
-PUBLIC_IP = "0.0.0.0"  # Change to the current public IP
-HTTP_PORT = 8000  # Port for HTTP (Gunicorn)
-WS_PORT = 8001  # Port for WebSocket (Daphne)
-
-BASE_URL = f"http://{PUBLIC_IP}:{HTTP_PORT}"
-WS_URL = f"ws://{PUBLIC_IP}:{WS_PORT}/ws/dashboard/"
+import common as settings
+BASE_URL = settings.BASE_URL
+WS_URL = settings.WSL_SERVER_URL
 
 USERNAME = "valid_username"
 PASSWORD = "valid_password"
