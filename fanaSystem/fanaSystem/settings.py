@@ -27,12 +27,12 @@ DEFAULT_SERVER_HOST = socket.gethostbyname(socket.gethostname())
 AUTH_SERVER_IP = os.getenv("AUTH_SERVER_IP", DEFAULT_SERVER_HOST)
 
 # PUBLIC_IP OR DOMAIN RELATED SETTINGS
-PUBLIC_IP = None
+PUBLIC_IP = "internals.getfana.com"
 
 # Construct the full URL for the authentication endpoint
-BASE_URL = f"http://{PUBLIC_IP if PUBLIC_IP else 'localhost'}:8000"
+BASE_URL = f"https://{PUBLIC_IP if PUBLIC_IP else 'localhost'}:8000"
 AUTH_SERVER_LOGIN_URL = f"{BASE_URL}/fanaAuthenticator/api/token/"
-WSL_SERVER_URL = f"http://{PUBLIC_IP if PUBLIC_IP else 'localhost'}:{8001 if PUBLIC_IP else 8000}/ws/dashboard/"
+WSL_SERVER_URL = f"https://{PUBLIC_IP if PUBLIC_IP else 'localhost'}:{8001 if PUBLIC_IP else 8000}/ws/dashboard/"
 SEND_ORDER_TO_DASHBOARD_URL =  f"{BASE_URL}/fanaDashboard/receiveOrder/"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,6 +84,11 @@ MIDDLEWARE = [
 SECURE_COOKIES = False  # Change to True in production
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'OPTIONS',
+]
 
 
 ROOT_URLCONF = "fanaSystem.urls"
@@ -160,15 +165,16 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# URL to access static files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'fanaCallSetup', 'static'),
-    os.path.join(BASE_DIR, 'fanaDashboard', 'static'),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Additional directories where Django will look for static files
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'static', 'fanaCallSetup'),
+#    os.path.join(BASE_DIR, 'static', 'fanaDashboard'),
+#]
 
-STATIC_URL = '/static/'
+# Directory where static files will be collected for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 

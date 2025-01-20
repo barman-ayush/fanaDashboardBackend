@@ -139,7 +139,6 @@ def handle_customer_order(request):
     Receive customer orders and forward them to the dashboard.
     """
     if request.method == 'POST':
-        print("Got a request", order_data)
         order_data = json.loads(request.body)
         try:
             response = requests.post(FANA_DASHBOARD_URL, json=order_data)
