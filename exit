@@ -1,0 +1,247 @@
+[33mcommit 2e2febe53e12f2cb3bcb0c5c3a1d37372d7ecf8f[m[33m ([m[1;36mHEAD -> [m[1;32mLighterVersion[m[33m)[m
+Author: Ayush Barman <barmanayush2980@gmail.com>
+Date:   Thu Jan 23 02:37:49 2025 +0530
+
+    Updated settings.py
+
+[33mcommit aab0afff0c2581a524eb3bf7bf6b4f18121f9f71[m
+Author: Ayush Barman <barmanayush2980@gmail.com>
+Date:   Thu Jan 23 02:37:08 2025 +0530
+
+    Added Twilio OTP services
+
+[33mcommit 5430b11686cb610b4af276aed2e9841572dacec7[m[33m ([m[1;31morigin/LighterVersion[m[33m)[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Jan 20 22:14:24 2025 +0000
+
+    Minor fix
+
+[33mcommit a40848140dd041d5f0ebb3d483cc3506f2808a47[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Jan 12 02:51:08 2025 +0530
+
+    Minor changes wrt test and urls
+
+[33mcommit 181094ed89f00fee256fd61c40cf573974f29136[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Thu Jan 9 19:42:40 2025 +0000
+
+    Made changes to use Redis for channel cache and other changes for hosting
+
+[33mcommit 9c223008502193296613c3fa40f1eaefd662fdbc[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Jan 5 18:44:27 2025 +0530
+
+    Ignored the google cloud secret manager
+
+[33mcommit 88ebe85a359c29100e25bd6fa946b5112cf36d95[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Jan 5 18:28:19 2025 +0530
+
+    Made changes to host things
+
+[33mcommit c7509636e9b6ea44d457ce7e00b16d5e6d51df13[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Dec 30 14:11:04 2024 +0530
+
+    Added requirements.txt
+
+[33mcommit 3d43631a77ade9e20beec1af8a290ea4596b4131[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Dec 30 13:33:37 2024 +0530
+
+    Minor changes
+
+[33mcommit 3b64fe970355352e4be74c8e63c4987ffb5f542e[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Dec 30 13:32:01 2024 +0530
+
+    Added list of tasks
+
+[33mcommit 8d39d82cd43d0617500749d3a664230d7d6b69d8[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 23 21:01:29 2024 +0530
+
+    Added support for cookie based auth on top of header based auth
+
+[33mcommit 73535d0ae06d35d3c76a524063f87b1f55cf01a3[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 23 19:53:49 2024 +0530
+
+    Added the changes to validate the websocket and ensure that the
+    header version works fine
+
+[33mcommit f75a9fe0ab9650cf144f4bab6389e87d3fee1dd7[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 23 17:58:52 2024 +0530
+
+    Added the jwt authentication for both header and cookies format
+
+[33mcommit 86bbbaeedc8f953debc771ee962047f69bbcf7f8[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 23 16:25:26 2024 +0530
+
+    Basic changes, may need to revert
+
+[33mcommit 7f44852ce20c36ec816f8ed27d80fd9bbb554a54[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 16 20:11:38 2024 +0530
+
+    Added requirements.py
+
+[33mcommit 3e767eb19a38d3689ca7be82a52715a70e172c22[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Fri Nov 15 01:20:12 2024 +0530
+
+    removed unnecessary subproject
+
+[33mcommit 51ec7d6b28370dae0ea660701c90bd04363a8dc5[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Fri Nov 15 01:17:55 2024 +0530
+
+    Cleanup
+
+[33mcommit d3ad40297352e18a44a12e896f0c044a6f125563[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Fri Nov 15 01:16:30 2024 +0530
+
+    Cleanup
+
+[33mcommit a06ea2aca9060e7714435d95edd2f3898c647059[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 9 20:24:19 2024 +0530
+
+    Made changes in dashboard css
+
+[33mcommit 04bac90e8152d659a50c78e5d4200d34dbb7ed51[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 9 20:19:59 2024 +0530
+
+    Made changes to support and display the order details comming from the menu app
+
+[33mcommit 242151b1ad02f10ac5d613ae4340a35114d9596a[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 9 02:43:29 2024 +0530
+
+    Improved the UI
+
+[33mcommit b354487fc28aef30ff59a4cea2eb68ce7a1a3b57[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sat Nov 9 02:12:58 2024 +0530
+
+    Added basic functionality of order handling
+
+[33mcommit 6a9cae7743c1b970618a029df74751ea295a735b[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Fri Nov 8 02:11:16 2024 +0530
+
+    Added tmp changes for demo, high power consumption table tracking device:
+
+[33mcommit ead0ceb57cec382bc21bbb198e0403316d0ac696[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Thu Nov 7 22:16:33 2024 +0530
+
+    Made login mandatory, also synced the KEY for both the servers, and authenticator now passes the username also, which will be the phne number
+
+[33mcommit 995426a1279ff942fadb917104c91abc0cffccf4[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Thu Nov 7 20:57:02 2024 +0530
+
+    Implroved the UI of login page
+
+[33mcommit 18bf107faf0a07c658863e2fabcdc3664a51af68[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Thu Nov 7 20:48:15 2024 +0530
+
+    Fix the UI for Sidebar
+
+[33mcommit 6912429b0a5dfd7de2fc301d9cbe96656e1c13be[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Thu Nov 7 20:36:49 2024 +0530
+
+    Added side bard
+
+[33mcommit 289e5544dce5ba9975b8ed9c41e22bf7c3f2ac96[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Thu Nov 7 20:02:52 2024 +0530
+
+    Updated the gitignore
+
+[33mcommit 7dc197ca3bc936d4a28f14526af6f13dd62f0cbe[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 03:36:32 2024 +0530
+
+    Added login page for dashboard
+
+[33mcommit 133915a1acae114fe270681b96406e8491467f13[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 02:04:28 2024 +0530
+
+    Made jwt tocken specific to the app instance
+    Added the apis to add or remove a device id, this device id will be used
+    to get authenticated by the clients. Also added a test for this whole
+    jwt sequence
+
+[33mcommit 583e6c2234d697f0b292cba5917a2c7c0b456382[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 02:01:22 2024 +0530
+
+    Added basic jwt authenticator app
+
+[33mcommit 28f09fcc24a928482d24a789957b1daac2267d95[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 01:22:16 2024 +0530
+
+    Added the functionality of removing the table details from dashboard which are in state 'not calling'
+
+[33mcommit d7c642de7ab8e107c1993974794e8c4486f94127[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 01:18:04 2024 +0530
+
+    changed the frontend view
+
+[33mcommit 2bf6fe9633caeff91054e05afff2f223f7c0c41c[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 01:10:51 2024 +0530
+
+    Added websocket and a dashboard to view the logs from esp32
+
+[33mcommit d86901ad25f694fabac48643fc6e9af1763ff445[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Mon Nov 4 00:38:46 2024 +0530
+
+    Removed the old dashboard style
+
+[33mcommit c0997a8f9c6e7525ab2e7d58eb22a0269614c9ee[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Nov 3 16:34:07 2024 +0530
+
+    Added fanaSystem/src/main.cpp to .gitignore
+
+[33mcommit 241d1b58b407345c9dfeb62ae5d7b9b51246edba[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Nov 3 16:32:44 2024 +0530
+
+    Added changes to send the time take to connect to the wifi for better analytics, this will be logged
+
+[33mcommit 11d42a23402073d12fe7e2b075460757da1ddda7[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Nov 3 16:02:25 2024 +0530
+
+    made change to reduce the state to 2 and every time the esp is restarted the state will toggle, the initial state will set to NOT_SET to remove the unnecessart confusion
+
+[33mcommit f8248727ac07ae0fc9c41a3e0b53e4ac7adff760[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Nov 3 15:43:13 2024 +0530
+
+    made basic changes
+
+[33mcommit c8d493d5859f19545926ffa098a73a65f6db0441[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Sun Oct 27 15:46:47 2024 +0530
+
+    Added the components.md which contains all the detailed struct info
+
+[33mcommit cae9707f14a57183b8e4edba65f741637b987682[m
+Author: Jayant Anand <jayantanand2001@gmail.com>
+Date:   Su

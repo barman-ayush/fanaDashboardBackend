@@ -17,6 +17,20 @@ from datetime import timedelta
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fanaSystem.settings")
 
+#Twilio Keys 
+#My account
+# TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID" , "" ) 
+# TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN" , "")
+# TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER" , "")
+
+
+# Jayant sir Account
+TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID" , "" ) 
+TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN" , "")
+TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER" , "+")
+TWILIO_SERVICE_SID = os.getenv("TWILIO_SERVICE_SID" , "")
+
+
 # Fetch the secret key
 SECRET_KEY = os.getenv("SECRET_KEY", "your_default_secret_key")
 
