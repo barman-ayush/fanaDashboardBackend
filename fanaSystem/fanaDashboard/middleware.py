@@ -5,6 +5,8 @@ from channels.middleware import BaseMiddleware
 from jwt import decode as jwt_decode, ExpiredSignatureError, InvalidTokenError
 from django.conf import settings
 from django.urls import resolve
+import json
+import jwt
 
 class JWTAuthenticationMiddleware:
     """
@@ -13,7 +15,7 @@ class JWTAuthenticationMiddleware:
 
     def __init__(self, get_response):
         self.get_response = get_response
-        self._exempt_urls = ['set_session', 'login_view']
+        self._exempt_urls = ['set_session', 'login_view' , 'send_view' , 'verify_view']
 
     def __call__(self, request):
         """
@@ -25,13 +27,16 @@ class JWTAuthenticationMiddleware:
         if view_name in self._exempt_urls:
             print(f"[INFO] Skipping authentication for exempt URL: {request.path}")
             return self.get_response(request)
-
+        
+        
         print(f"[DEBUG] JWTAuthenticationMiddleware invoked for HTTP path: {request.path}")
         token = self._get_token_from_request(request)
+        print("TOKEN" , token)
         if token:
             try:
                 decoded_token = jwt_decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-                user = self.get_user_from_token(decoded_token)
+                # user = self.get_user_from_token(decoded_token)
+                user = self.get_number_from_token(decoded_token)
                 request.user = user  # Attach user to the request
                 print(f"[DEBUG] Token validated successfully for user: {user}.")
             except (ExpiredSignatureError, InvalidTokenError) as e:
@@ -51,6 +56,11 @@ class JWTAuthenticationMiddleware:
             auth_header = request.headers.get('Authorization', '')
             if auth_header.startswith('Bearer '):
                 token = auth_header.split('Bearer ')[-1]
+            # We can fetch the token even if the request has it in the json object
+            if not token:
+                data = json.loads(request.body)
+                token = data.get("token")      
+                print("Here in token")          
         return token
 
     def get_user_from_token(self, decoded_token):
@@ -62,6 +72,18 @@ class JWTAuthenticationMiddleware:
         if username:
             user, created = User.objects.get_or_create(username=username)
             return user
+        return AnonymousUser()
+    
+    def get_number_from_token(self, decoded_token):
+        """
+        Retrieve or create a user based on the token.
+        """
+        User = get_user_model()
+        phone = decoded_token.get("phone_number")
+        if phone:
+            return phone
+            # user, created = User.objects.get_or_create(username=username)
+            # return user
         return AnonymousUser()
 
 from channels.middleware import BaseMiddleware

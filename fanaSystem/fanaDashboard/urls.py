@@ -20,6 +20,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    
+    path('test/', views.test_view, name='test_view'),
+    path('sendOtp/', views.send_otp, name='send_view'),
+    path('verifyOtp/', views.verify_otp, name='verify_view'),
     path('login/', views.login_view, name='login_view'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('handleFanaCall/', views.handle_fana_call, name='handleFanaCall'),
